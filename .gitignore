@@ -34,3 +34,6 @@
 # cmake stuff
 build/*
 cmake-build-debug/*
+
+# exclude n3n repo as we need to manage that ourselves
+n3n/*
