@@ -78,11 +78,6 @@ void WINAPI ServiceMain(DWORD argc, LPSTR *argv)
         return;
     }
 
-    // Alloc console so that we can send console related events
-    // This is needed to be able to terminate the n3nedge we start
-    // Fucking Windows api bullshit this took me 2 days to figure out and i only solved it with the help of a blog entry from 2008
-    AllocConsole();
-
     // Service is now running
     ServiceStatus.dwCurrentState = SERVICE_RUNNING;
     if (SetServiceStatus(hStatus, &ServiceStatus) == FALSE)
@@ -93,9 +88,6 @@ void WINAPI ServiceMain(DWORD argc, LPSTR *argv)
 
     // Start the named pipe server to listen for client requests
     StartPipeServer();
-
-    char buffer[512];
-    DWORD bytesRead;
 
     while (ServiceStatus.dwCurrentState == SERVICE_RUNNING)
     {
@@ -118,40 +110,6 @@ void WINAPI ServiceMain(DWORD argc, LPSTR *argv)
                 break;
             }
         }
-/*
-        std::string message = std::string(buffer, bytesRead);
-
-        logger.info("Received message: " + message);
-
-        if (message.starts_with("connect")) {
-            std::string network = message.replace(0, sizeof("connect "), "");
-            if (network.empty()) {
-                if (N3N::connect()) {
-                    Respond("Connected to main");
-                    logger.info("Connected to main");
-                } else {
-                    Respond("Connection to main failed");
-                    logger.error("Connection to main failed: " + std::to_string(GetLastError()));
-                }
-            } else {
-                if (N3N::connect(network)) {
-                    Respond("Connected to " + network);
-                    logger.info("Connected to " + network);
-                } else {
-                    Respond("Connection to " + network + " failed");
-                    logger.error("Connection to " + network + " failed: " + std::to_string(GetLastError()));
-                }
-            }
-        } else if (message.starts_with("disconnect")) {
-            N3N::shutdown();
-            Respond("Disconnected");
-            logger.info("Disconnected");
-        } else {
-            Respond("Unknown Command!");
-            logger.warn("Unknown Command!");
-        }
-
-        ZeroMemory(&buffer, sizeof(buffer));*/
     }
 
     logger.info("Shutting down");
