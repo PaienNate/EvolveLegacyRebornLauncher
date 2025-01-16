@@ -13,13 +13,8 @@ static const auto folder = fullpath.remove_filename().string();
 static LOGGER logger(folder);
 
 int main(int argc, char* argv[]) {
+    //TODO implement actual launcher, right now just tests if the N3NManager is working
     logger.info("Connecting to N3N Network!");
-
-    /*N3N::connect();
-    WaitForSingleObject( N3N::pi.hProcess, 5000 );
-    std::cout << "Shutting down!" << std::endl;
-    N3N::shutdown();
-    return 0;*/
 
     // Connect to the named pipe
     HANDLE hPipe = CreateFile(
