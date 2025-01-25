@@ -303,7 +303,7 @@ int main(int argc, char* argv[]) {
         QGraphicsScene blurScene;
         QGraphicsPixmapItem *pixmapItem = blurScene.addPixmap(QPixmap::fromImage(croppedImage));
         auto *blurEffect = new QGraphicsBlurEffect;
-        blurEffect->setBlurRadius(25); // Adjust blur radius
+        blurEffect->setBlurRadius(15); // Adjust blur radius
         pixmapItem->setGraphicsEffect(blurEffect);
 
         // Render the blurred result to a pixmap
@@ -517,6 +517,30 @@ int main(int argc, char* argv[]) {
     QObject::connect(evolveLaunchArgsEditor, &QLineEdit::editingFinished, [&]() {
         evolveLaunchArgs = evolveLaunchArgsEditor->text().toStdString();
     });
+
+    auto creditsText = new QLabel(settingsOverlay);
+    creditsText->setGeometry(680, 40, WIDTH - 720, HEIGHT - 80);
+    creditsText->setFont(boldUI);
+    creditsText->setWordWrap(true);
+    creditsText->setTextFormat(Qt::RichText);
+    creditsText->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    creditsText->setOpenExternalLinks(true);
+    // The formatting here is quite bad, but has to be like this to avoid spacing issues
+    creditsText->setText(R"(Huge thanks to the creators of the original emulator:<br>
+Nemirtingas, schmogmog, Nemerod, kiagam, Pinenut, pikapika<br>
+<br>
+Without your work this wouldn't have been possible!<br>
+<br>
+Special thanks to:<br>
+Pinenut, for completely rewriting the ricefix and most of the emulator<br>
+<a style="color: #db3425;" href="https://www.youtube.com/@macabrevoid">Macabre Void</a>, for the awesome background video<br>
+Nemerod, for all the effort he put into this game<br>
+The entire Evolve Reunited 2.0 team<br>
+All the people in the discord that constantly help with answering questions and other issues<br>
+You, for not letting Evolve die<br>
+<br>
+This launcher was written by DeinAlbtraum<br>
+<a style="color: #db3425;" href="https://github.com/PaienNate/EvolveLegacyRebornLauncher">Source</a>)");
 
     auto closeButton = new QPushButton(&win);
     closeButton->setGeometry(WIDTH - 40, 0, 40, 40);
