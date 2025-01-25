@@ -540,7 +540,7 @@ All the people in the discord that constantly help with answering questions and 
 You, for not letting Evolve die<br>
 <br>
 This launcher was written by DeinAlbtraum<br>
-<a style="color: #db3425;" href="https://github.com/PaienNate/EvolveLegacyRebornLauncher">Source</a>)");
+<a style="color: #db3425;" href="https://github.com/PaienNate/EvolveLegacyRebornLauncher">Source</a>, <a style="color: #db3425;" href="http://discord.evolvereunited.org">Discord</a>)");
 
     auto closeButton = new QPushButton(&win);
     closeButton->setGeometry(WIDTH - 40, 0, 40, 40);
