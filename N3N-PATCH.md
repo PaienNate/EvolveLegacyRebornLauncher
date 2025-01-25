@@ -28,12 +28,18 @@ you'll also need to replace all assignments to keep_on_running like this:
 ```diff
 - eee->keep_running = &keep_on_running;
 
++ SECURITY_DESCRIPTOR sd;
++ InitializeSecurityDescriptor(&sd, SECURITY_DESCRIPTOR_REVISION);
++ SetSecurityDescriptorDacl(&sd, TRUE, NULL, FALSE);
++ SetSecurityDescriptorControl(&sd, SE_DACL_PROTECTED, SE_DACL_PROTECTED);
++ SECURITY_ATTRIBUTES sa = { sizeof(sa), &sd, FALSE};
++
 + HANDLE hMapFile;
 + 
 + // Create a memory-mapped file
 + hMapFile = CreateFileMapping(
 +         INVALID_HANDLE_VALUE,    // Use system paging file
-+         NULL,                    // Default security
++         &sa,                     // Default security
 +         PAGE_READWRITE,          // Read/write access
 +         0, MAPPED_FILE_SIZE,     // Size of the mapped file (1 byte)
 +         MAPPED_FILE_NAME         // Name of the mapping
