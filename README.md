@@ -36,6 +36,7 @@ ninja install
 - clone n3n via wsl (you want unix line-endings, crlf breaks the wsl shell)
 - apply the patch as outlined in N3N-PATCH.md
 - compile the custom n3n-edge
+- create a new folder called "bin" in the root folder of this repo and copy the custom n3n-edge.exe into it
 - in the root folder of this repo, run these commands to create the cmake build config and compile the launcher
   - Make sure to set the CMAKE_PREFIX_PATH to the place where you have installed QT on your system:
   - you might to run this inside the "x64 Native Tools Command Prompt for VS 2022" as well in case things like WMF can't be found
@@ -45,6 +46,4 @@ cd build
 cmake -DCMAKE_PREFIX_PATH="C:\Qt\6.8.1\MSVC-Static" ..
 cmake --build . --config Release
 ```
-- create a new folder called "bin" in the same spot as your EvolveN3NManager.exe and copy the custom n3n-edge.exe into it
-- copy the EvolveN3NManager.exe, EvolveLauncher.exe and the bin folder into your EvolveGame/bin64_SteamRetail folder 
-  - (or just run the Launcher and it will try to figure things out itself (TODO))
+- run the launcher and point it to your bin64_SteamRetail folder via the Settings, it will then copy all the necessary files into the correct places

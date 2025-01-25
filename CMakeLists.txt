@@ -14,21 +14,6 @@ set(CMAKE_AUTOMOC ON)
 # make sure to apply the patch after N3N updates!
 # Note: N3N needs to be built on linux/wsl with make and i can't be bothered to sink even more time into compiling it into a lib file that i can actually use myself
 
-# https://stackoverflow.com/a/77901401
-function(add_manifest TARGET_NAME MANIFEST_FILE)
-    if(NOT TARGET_NAME)
-        message(FATAL_ERROR "You must provide a target")
-    endif()
-    if(NOT MANIFEST_FILE)
-        message(FATAL_ERROR "You must provide a manifest file")
-    endif()
-    add_custom_command(
-            TARGET ${TARGET_NAME}
-            POST_BUILD
-            COMMAND "mt.exe" -manifest \"${CMAKE_CURRENT_SOURCE_DIR}\\${MANIFEST_FILE}\" -inputresource:\"$<TARGET_FILE:${TARGET_NAME}>\"\;\#1 -outputresource:\"$<TARGET_FILE:${TARGET_NAME}>\"\;\#1
-    )
-endfunction()
-
 # Find the required Qt modules
 find_package(Qt6 REQUIRED COMPONENTS Widgets Core Gui Multimedia MultimediaWidgets)
 
