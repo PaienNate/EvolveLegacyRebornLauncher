@@ -39,7 +39,8 @@ ninja install
 - create a new folder called "bin" in the root folder of this repo and copy the custom n3n-edge.exe into it
 - in the root folder of this repo, run these commands to create the cmake build config and compile the launcher
   - Make sure to set the CMAKE_PREFIX_PATH to the place where you have installed QT on your system:
-  - you might to run this inside the "x64 Native Tools Command Prompt for VS 2022" as well in case things like WMF can't be found
+  - Make sure to set the CMAKE toolchain to Visual Studio 2022 or use the "x64 Native Tools Command Prompt for VS 2022" to build this
+  - If you set the toolchain make sure to set the CMAKE Option as below
 ```shell
 mkdir build
 cd build

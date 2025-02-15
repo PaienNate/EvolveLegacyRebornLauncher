@@ -15,7 +15,7 @@ set(CMAKE_AUTOMOC ON)
 # Note: N3N needs to be built on linux/wsl with make and i can't be bothered to sink even more time into compiling it into a lib file that i can actually use myself
 
 # Find the required Qt modules
-find_package(Qt6 REQUIRED COMPONENTS Widgets Core Gui Multimedia MultimediaWidgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Core Gui Multimedia MultimediaWidgets Network)
 
 qt_standard_project_setup()
 
@@ -29,9 +29,14 @@ add_executable(${PROJECT_NAME} WIN32
         src/launcher/PipeHelper.h
         src/qt/DraggableLabel.cpp
         src/qt/DraggableLabel.h
+        src/qt/FileDownloader.hpp
+        src/qt/Updater.hpp
+        src/GameFiles.h
+        src/util/SaveFileHelper.cpp
+        src/util/SaveFileHelper.h
 )
-
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets Qt6::Gui Qt6::Core Qt6::Multimedia Qt6::MultimediaWidgets)
+target_include_directories(${PROJECT_NAME} PUBLIC "include/xxhash")
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets Qt6::Gui Qt6::Core Qt6::Multimedia Qt6::MultimediaWidgets Qt6::Network)
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "EvolveLauncher")
 set_target_properties(${PROJECT_NAME} PROPERTIES VS_DPI_AWARE "PerMonitor")
 target_compile_definitions(${PROJECT_NAME} PUBLIC LOGGER_FILENAME="Launcher.log")
@@ -49,6 +54,13 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         "${CMAKE_CURRENT_SOURCE_DIR}/console_usage.txt"
         "$<TARGET_FILE_DIR:${PROJECT_NAME}>/console_usage.txt"
         COMMENT "Copying console usage guide"
+)
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
+        "${CMAKE_CURRENT_SOURCE_DIR}/patch"
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/patch"
+        COMMENT "Copying game patch template"
 )
 
 add_executable(N3NManagerService

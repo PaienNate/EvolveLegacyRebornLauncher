@@ -1,7 +1,9 @@
 Evolve Legacy Reborn Launcher Help:
--M | --no-manager   Don't use the EvolveN3NManager Background Service, instead ask for elevation when launching the game
--N | --network      Use a custom network instead of the default one called "main". Usage: --network 1234
--B | --bin64        Point the launcher to a custom location for the bin64_SteamRetail folder. Usage: --bin64 path/to/EvolveGame/bin64_SteamRetail
+   | --update           Deploy launcher update. Do not use this yourself, this is just for internal usage
+-O | --do-onboarding    (Re-)run the onboarding process (setup game location, import progress, setup username)
+-M | --no-manager       Don't use the EvolveN3NManager Background Service, instead ask for elevation when launching the game
+-N | --network          Use a custom network instead of the default one called "main". Usage: --network 1234
+-B | --bin64            Point the launcher to a custom location for the bin64_SteamRetail folder. Usage: --bin64 path/to/EvolveGame/bin64_SteamRetail
 
 Any arguments that are not listed here will be forwarded to Evolve when launching the Game!
 
